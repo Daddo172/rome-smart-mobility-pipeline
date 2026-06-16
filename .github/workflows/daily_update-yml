@@ -1,0 +1,24 @@
+name: Aggiornamento Dati Mobilità
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Gira ogni giorno a mezzanotte
+  workflow_dispatch: # Ti permette di farlo girare manualmente con un tasto!
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Installazione librerie
+        run: pip install -r requirements.txt
+
+      - name: Esecuzione script di aggiornamento
+        run: python populate_db.py
